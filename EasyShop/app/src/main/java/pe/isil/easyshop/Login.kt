@@ -7,28 +7,50 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import pe.isil.easyshop.ui.theme.EasyShopTheme
 
 @Composable
-fun Login(){
+fun Login(navController: NavController){
+
+    val email = remember {
+        mutableStateOf("")
+    }
+
+    val password = remember {
+        mutableStateOf("")
+    }
+
+    val isVisible = remember {
+        mutableStateOf(false)
+    }
+
     Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
         ){
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = email.value,
+            onValueChange = {
+                email.value = it
+            },
             placeholder =
                 {
                     Text("Email")
@@ -39,25 +61,44 @@ fun Login(){
                 .padding(8.dp),
             shape = RoundedCornerShape(8.dp),
             leadingIcon = {
-                Icon(Icons.Default.Person,
+                Icon(Icons.Default.Email,
                     contentDescription = null)
             }
         )
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = password.value,
+            onValueChange = {
+                password.value = it
+            },
             modifier = Modifier.fillMaxWidth().padding(8.dp),
             placeholder = { Text("Password") },
             leadingIcon = {
                 Icon(Icons.Default.Lock,
                     contentDescription = null)
             },
-            shape = RoundedCornerShape(8.dp)
+            shape = RoundedCornerShape(8.dp),
+            trailingIcon = {
+                IconButton(onClick = {
+                    isVisible.value = !isVisible.value
+                }) {
+                    Icon(
+                        if (isVisible.value) {
+                            Icons.Default.Visibility
+                        } else {
+                            Icons.Default.VisibilityOff
+                        }
+                        ,
+                        contentDescription = null
+                    )
+                }
+            }
         )
 
         Button(
-            onClick = {},
+            onClick = {
+                navController.navigate("home")
+            },
             modifier = Modifier.fillMaxWidth().padding(8.dp),
             shape = RoundedCornerShape(8.dp)
             ) {
@@ -71,6 +112,6 @@ fun Login(){
 @Composable
 fun LoginPreview() {
     EasyShopTheme (dynamicColor = false){
-        Login()
+        Login(rememberNavController())
     }
 }
