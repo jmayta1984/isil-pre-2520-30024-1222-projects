@@ -199,7 +199,7 @@ fun RoundedIcon(icon: ImageVector) {
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun HomePreview() {
     EasyShopTheme(dynamicColor = false) {
