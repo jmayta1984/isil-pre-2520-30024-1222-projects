@@ -20,14 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import pe.isil.easyshop.ui.theme.EasyShopTheme
 
 @Composable
-fun Login(navController: NavController){
+fun LoginScreen(onSignIn: (String) -> Unit) {
 
     val email = remember {
         mutableStateOf("")
@@ -41,10 +41,10 @@ fun Login(navController: NavController){
         mutableStateOf(false)
     }
 
-    Column (
+    Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
-        ){
+    ) {
 
         OutlinedTextField(
             value = email.value,
@@ -54,15 +54,16 @@ fun Login(navController: NavController){
             placeholder =
                 {
                     Text("Email")
-                }
-            ,
+                },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
             shape = RoundedCornerShape(8.dp),
             leadingIcon = {
-                Icon(Icons.Default.Email,
-                    contentDescription = null)
+                Icon(
+                    Icons.Default.Email,
+                    contentDescription = null
+                )
             }
         )
 
@@ -71,13 +72,23 @@ fun Login(navController: NavController){
             onValueChange = {
                 password.value = it
             },
-            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             placeholder = { Text("Password") },
             leadingIcon = {
-                Icon(Icons.Default.Lock,
-                    contentDescription = null)
+                Icon(
+                    Icons.Default.Lock,
+                    contentDescription = null
+                )
             },
             shape = RoundedCornerShape(8.dp),
+            visualTransformation =
+                if (isVisible.value) {
+                    VisualTransformation.None
+                } else {
+                    PasswordVisualTransformation()
+                },
             trailingIcon = {
                 IconButton(onClick = {
                     isVisible.value = !isVisible.value
@@ -87,8 +98,7 @@ fun Login(navController: NavController){
                             Icons.Default.Visibility
                         } else {
                             Icons.Default.VisibilityOff
-                        }
-                        ,
+                        },
                         contentDescription = null
                     )
                 }
@@ -97,11 +107,13 @@ fun Login(navController: NavController){
 
         Button(
             onClick = {
-                navController.navigate("home")
+                onSignIn(email.value)
             },
-            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             shape = RoundedCornerShape(8.dp)
-            ) {
+        ) {
             Text("Sign in")
         }
 
@@ -111,7 +123,7 @@ fun Login(navController: NavController){
 @Preview(showBackground = true)
 @Composable
 fun LoginPreview() {
-    EasyShopTheme (dynamicColor = false){
-        Login(rememberNavController())
+    EasyShopTheme(dynamicColor = false) {
+        LoginScreen {}
     }
 }

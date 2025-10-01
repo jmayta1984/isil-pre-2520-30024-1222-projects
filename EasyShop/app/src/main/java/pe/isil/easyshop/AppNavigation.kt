@@ -1,6 +1,8 @@
 package pe.isil.easyshop
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,13 +13,21 @@ import pe.isil.easyshop.ui.theme.EasyShopTheme
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController, startDestination = "login") {
-        composable("login") {
-            Login(navController)
+    val username = remember {
+        mutableStateOf("")
+    }
+
+    NavHost(navController, startDestination = Routes.Login.route) {
+        composable(Routes.Login.route) {
+            LoginScreen { value ->
+                navController.navigate(Routes.Home.route)
+                username.value = value
+            }
         }
-        composable("home") {
-            Home()
+        composable(Routes.Home.route) {
+            HomeScreen(username.value)
         }
+
 
     }
 

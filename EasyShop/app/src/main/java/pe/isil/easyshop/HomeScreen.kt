@@ -21,7 +21,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,7 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -41,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import pe.isil.easyshop.ui.theme.EasyShopTheme
 
 @Composable
-fun Home() {
+fun HomeScreen(username: String) {
     Column(modifier = Modifier.fillMaxSize()) {
 
         Row(
@@ -69,7 +67,7 @@ fun Home() {
                 )
             }
             Column(modifier = Modifier.weight(1f)) {
-                Text("Hello Alex")
+                Text("Hello $username")
                 Text("Good morning")
             }
 
@@ -203,7 +201,7 @@ fun RoundedIcon(icon: ImageVector) {
 @Composable
 fun HomePreview() {
     EasyShopTheme(dynamicColor = false) {
-        Home()
+        HomeScreen("Android")
     }
 
 }
