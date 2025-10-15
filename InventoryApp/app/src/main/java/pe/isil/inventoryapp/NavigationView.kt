@@ -42,16 +42,29 @@ fun NavigationView(modifier: Modifier = Modifier) {
                     selectedProduct.value = product
                     navController.navigate("product_detail")
                 },
-                onAdd = { navController.navigate("product_detail") }
+                onAdd = {
+                    selectedProduct.value = null
+                    navController.navigate("product_detail")
+                }
             )
         }
 
         composable("product_detail") {
-            ProductDetailView(product = selectedProduct.value) { product ->
-                products.add(product)
+            ProductDetailView(
+                product = selectedProduct.value,
+
+                onDelete = { product ->
+                    products.remove(product)
+                    navController.popBackStack()
+
+                }
+            ) { product ->
+                if (!products.contains(product)) {
+                    products.add(product)
+                }
                 navController.popBackStack()
             }
         }
-    }
 
+    }
 }
