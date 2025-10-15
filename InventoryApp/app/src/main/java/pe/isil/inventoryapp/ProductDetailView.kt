@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ProductDetailView(
     modifier: Modifier = Modifier,
-    product: Product? = null
+    product: Product? = null,
+    onSave: (Product) -> Unit = {}
 ) {
 
     val name = remember { mutableStateOf("") }
@@ -31,9 +32,17 @@ fun ProductDetailView(
     val price = remember { mutableStateOf("") }
 
     Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = {}) {
+        FloatingActionButton(onClick = {
+            onSave(
+                Product(
+                    name = name.value,
+                    quantity = quantity.value.toIntOrNull() ?: 0,
+                    price = price.value.toDoubleOrNull() ?: 0.0
+                )
+            )
+        }) {
             Icon(
-                Icons.Default.Done,
+                Icons.Default.Save,
                 contentDescription = "add"
             )
         }

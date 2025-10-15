@@ -1,6 +1,7 @@
 package pe.isil.inventoryapp
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -13,20 +14,43 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun NavigationView(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    val selectedProduct = remember{
+    val selectedProduct = remember {
         mutableStateOf<Product?>(null)
     }
 
+    val products = remember {
+        mutableStateListOf(
+            Product(
+                name = "Pants",
+                price = 99.99,
+                quantity = 2
+            ),
+
+            Product(
+                name = "T-Shirt",
+                price = 19.99,
+                quantity = 5
+            ),
+        )
+    }
     NavHost(navController, startDestination = "product_list", modifier = modifier) {
 
         composable("product_list") {
-            ProductListView {
-                navController.navigate("product_detail")
-            }
+            ProductListView(
+                products = products,
+                onProductSelected = { product ->
+                    selectedProduct.value = product
+                    navController.navigate("product_detail")
+                },
+                onAdd = { navController.navigate("product_detail") }
+            )
         }
 
         composable("product_detail") {
-            ProductDetailView()
+            ProductDetailView(product = selectedProduct.value) { product ->
+                products.add(product)
+                navController.popBackStack()
+            }
         }
     }
 

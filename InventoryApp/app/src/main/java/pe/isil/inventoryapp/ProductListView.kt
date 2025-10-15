@@ -32,25 +32,12 @@ import androidx.compose.ui.unit.dp
 @Preview
 @Composable
 fun ProductListView(
-    onProductSelected: () -> Unit = {},
+    products: List<Product> = emptyList(),
+    onProductSelected: (Product) -> Unit = {},
     onAdd: () -> Unit = {}
 ) {
 
-    val products = remember {
-        mutableStateListOf(
-            Product(
-                name = "Pants",
-                price = 99.99,
-                quantity = 2
-            ),
 
-            Product(
-                name = "T-Shirt",
-                price = 19.99,
-                quantity = 5
-            ),
-        )
-    }
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -65,7 +52,9 @@ fun ProductListView(
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             items(items = products) { product ->
-                ProductCard(product, onProductSelected)
+                ProductCard(product) {
+                    onProductSelected(product)
+                }
             }
         }
     }
