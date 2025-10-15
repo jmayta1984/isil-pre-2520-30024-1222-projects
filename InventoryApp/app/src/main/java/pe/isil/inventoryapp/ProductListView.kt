@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 
 @Preview
 @Composable
-fun ProductListScreen() {
+fun ProductListView() {
 
     val products = remember {
         mutableStateListOf(
