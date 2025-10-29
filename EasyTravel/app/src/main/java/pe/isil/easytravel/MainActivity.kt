@@ -11,6 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import pe.isil.easytravel.di.Module.getDestinationListViewModel
+import pe.isil.easytravel.presentation.DestinationListView
+import pe.isil.easytravel.presentation.DestinationListViewModel
 import pe.isil.easytravel.ui.theme.EasyTravelTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +22,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EasyTravelTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold { innerPadding ->
+                    DestinationListView(
+                        modifier = Modifier.padding(innerPadding),
+                        viewModel = getDestinationListViewModel()
+                        )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EasyTravelTheme {
-        Greeting("Android")
     }
 }

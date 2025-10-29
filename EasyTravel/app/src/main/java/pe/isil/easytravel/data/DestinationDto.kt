@@ -3,7 +3,8 @@ package pe.isil.easytravel.data
 import com.google.gson.annotations.SerializedName
 
 
-data class DestinationDto(
+data class
+DestinationDto(
     @SerializedName("bestSeason")
     val bestSeason: String,
     @SerializedName("city")
