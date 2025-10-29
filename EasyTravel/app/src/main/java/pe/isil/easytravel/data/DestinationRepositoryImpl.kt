@@ -4,8 +4,8 @@ import pe.isil.easytravel.domain.Destination
 import pe.isil.easytravel.domain.DestinationRepository
 
 class DestinationRepositoryImpl(private val service: DestinationService) : DestinationRepository {
-    override suspend fun getDestinations(): List<Destination> {
-        val response = service.getDestinations()
+    override suspend fun getDestinations(category: String): List<Destination> {
+        val response = service.getDestinations(category)
         if (response.isSuccessful) {
             response.body()?.let { wrapperDto ->
               return wrapperDto.destinations.map { dto ->

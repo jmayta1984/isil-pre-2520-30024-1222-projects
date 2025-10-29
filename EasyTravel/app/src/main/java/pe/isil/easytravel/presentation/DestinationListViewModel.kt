@@ -12,9 +12,17 @@ class DestinationListViewModel(private val repository: DestinationRepository): V
     private val _destinations = MutableStateFlow<List<Destination>>(emptyList())
     val destinations: StateFlow<List<Destination>> = _destinations
 
+    private val _category = MutableStateFlow("All")
+    val category: StateFlow<String> = _category
+
+    fun onCategoryChanged(value: String) {
+        _category.value = value
+        getDestinations()
+    }
+
     fun getDestinations(){
         viewModelScope.launch {
-         _destinations.value = repository.getDestinations()
+         _destinations.value = repository.getDestinations( if (category.value == "All") "" else category.value )
         }
     }
 
