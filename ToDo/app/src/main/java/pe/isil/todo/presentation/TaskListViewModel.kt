@@ -15,8 +15,17 @@ class TaskListViewModel(private val repository: TaskRepository): ViewModel() {
     fun addTask(task: Task) {
         viewModelScope.launch {
             repository.insert(task)
+            getAllTasks()
         }
-        getAllTasks()
+
+    }
+
+    fun onToggleCompleted(task: Task) {
+        val updateTask = task.copy(isCompleted = !task.isCompleted)
+        viewModelScope.launch {
+            repository.update(updateTask)
+            getAllTasks()
+        }
     }
 
     fun getAllTasks() {
