@@ -16,20 +16,16 @@ class TaskListViewModel(private val repository: TaskRepository): ViewModel() {
         viewModelScope.launch {
             repository.insert(task)
         }
-
-    }
-
-    fun deleteTask(){
-
-    }
-
-    fun updateTask() {
-
+        getAllTasks()
     }
 
     fun getAllTasks() {
         viewModelScope.launch {
            _tasks.value = repository.getAll()
         }
+    }
+
+    init {
+        getAllTasks()
     }
 }
