@@ -14,10 +14,10 @@ ksp = "2.3.1" # ksp
 roomRuntime = "2.8.3" # Room
 materialIconsExtended = "1.7.8" # Material Icons
 navigationCompose = "2.9.6" # Navigation Compose
+coilCompose = "3.3.0" # Coil
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -49,6 +49,10 @@ androidx-material-icons-extended = { group = "androidx.compose.material", name =
 
 # Navigation compose
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+
+# Coil
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
