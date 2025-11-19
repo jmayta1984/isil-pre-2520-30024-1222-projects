@@ -38,7 +38,10 @@ fun MainView() {
         }
 
         composable("task_detail") {
-            TaskDetailView(task = selectedTask.value) { task ->
+            TaskDetailView(task = selectedTask.value, onDelete = {
+                viewModel.deleteTask(it)
+                navController.popBackStack()
+            }) { task ->
                 task.id?.let {
                     viewModel.updateTask(task)
                 } ?: run {
