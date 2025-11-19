@@ -22,23 +22,29 @@ fun MainView() {
     NavHost(navController, startDestination = "task_list") {
 
         composable("task_list") {
-            TaskListView(tasks = tasks.value,
+            TaskListView(
+                tasks = tasks.value,
 
                 onTaskSelected = {
                     selectedTask.value = it
                     navController.navigate("task_detail")
                 },
                 onToggleCompleted = {
-                viewModel.onToggleCompleted(it)
-            } ) {
+                    viewModel.onToggleCompleted(it)
+                }) {
                 selectedTask.value = null
                 navController.navigate("task_detail")
             }
         }
 
-        composable ("task_detail") {
+        composable("task_detail") {
             TaskDetailView(task = selectedTask.value) { task ->
-                viewModel.addTask(task)
+                task.id?.let {
+                    viewModel.updateTask(task)
+                } ?: run {
+                    viewModel.addTask(task)
+                }
+
                 navController.popBackStack()
             }
         }

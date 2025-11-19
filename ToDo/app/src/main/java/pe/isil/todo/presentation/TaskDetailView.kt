@@ -3,6 +3,7 @@ package pe.isil.todo.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
@@ -15,13 +16,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import pe.isil.todo.domain.Task
 
 @Composable
 fun TaskDetailView(
     modifier: Modifier = Modifier,
     task: Task?,
-    onSave: (Task) -> Unit) {
+    onSave: (Task) -> Unit
+) {
 
     val title = remember {
         mutableStateOf(task?.title ?: "")
@@ -34,9 +37,10 @@ fun TaskDetailView(
         FloatingActionButton(onClick = {
             val task =
                 Task(
+                    id = task?.id,
                     title = title.value,
                     description = description.value,
-                    isCompleted = false
+                    isCompleted = task?.isCompleted ?: false
                 )
             onSave(task)
         }) {
@@ -51,9 +55,15 @@ fun TaskDetailView(
                 .padding(paddingValues)
         ) {
             OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 value = title.value,
                 onValueChange = { title.value = it })
             OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 value = description.value,
                 onValueChange = { description.value = it })
         }
