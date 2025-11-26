@@ -16,6 +16,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d("FCM", "Message from: ${message.from}")
         message.notification?.let {
             Log.d("FCM", "Title: ${it.title} - Content: ${it.body}")
+            NotificationHelper.createNotificationChannel(this)
+            NotificationHelper.sendNotification(this, title = it.title, content = it.body)
         }
     }
 }
