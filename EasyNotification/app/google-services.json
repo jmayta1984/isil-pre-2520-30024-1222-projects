@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "486993392890",
+    "project_id": "notifications-fd30f",
+    "storage_bucket": "notifications-fd30f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486993392890:android:2bd046776fe10f89a1c543",
+        "android_client_info": {
+          "package_name": "pe.isil.easynotification"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxMQme8YsIZdsnVmROutR7pwmChN3Ld-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
